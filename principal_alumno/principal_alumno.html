@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Página principal del alumno</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style_pAlumno.css">
+</head>
+<body>
+  <header>
+    <div class="left">
+      <div class="brand">
+        <img src="simsLogo.png" alt="simslogo" class="logo">
+        <span class="name">SIMCETI</span>
+      </div>
+    </div>
+    <div class="right">
+      <a href="#" title="Notificaciones" class="ionicon_a">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </a>
+      <a href="#">
+        <img src="avatar.png" alt="Avatar" class="avatar">
+      </a>
+    </div>
+  </header>
+
+  <aside class="sidebar menu-toggle" id="sidebar">
+    <nav>
+      <ul>
+        <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+          <ion-icon name="home-outline"></ion-icon>
+          <span>Dashboard</span></a></li>
+        <li><a href="#cursos" class="nav-link" data-section="cursos">
+          <ion-icon name="book-outline"></ion-icon>
+          <span>Mis Cursos</span></a></li>
+        <li><a href="#tareas" class="nav-link" data-section="tareas">
+          <ion-icon name="checkbox-outline"></ion-icon>
+          <span>Tareas</span></a></li>
+        <li><a href="#calificaciones" class="nav-link" data-section="calificaciones">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <span>Calificaciones</span></a></li>
+        <li><a href="#horario" class="nav-link" data-section="horario">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>Horario</span></a></li>
+        <li><a href="#mensajes" class="nav-link" data-section="mensajes">
+          <ion-icon name="mail-outline"></ion-icon>
+          <span>Mensajes</span></a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#perfil"><ion-icon name="person-outline"></ion-icon><span>Mi Perfil</span></a>
+      <a href="#" id="btn-logout"><ion-icon name="log-out-outline"></ion-icon><span>Cerrar Sesión</span></a>
+    </div>
+  </aside>
+
+  <div class="content">
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="section active">
+      <h1 class="section-title">Bienvenido, <span id="nombre-alumno">Alumno</span></h1>
+
+      <div id="classroom-connect-banner" class="classroom-banner">
+        <div class="banner-icon">
+          <svg viewBox="0 0 24 24" fill="none" width="48" height="48">
+            <rect width="24" height="24" rx="4" fill="#1DA462"/>
+            <path d="M5 8h14M5 12h14M5 16h8" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="banner-text">
+          <strong>Conecta Google Classroom</strong>
+          <p>Accede a tus cursos y tareas directamente desde aquí.</p>
+        </div>
+        <button id="btn-conectar-classroom" class="btn-conectar" type="button">
+          Conectar Classroom
+        </button>
+      </div>
+
+      <div id="classroom-resumen" class="resumen-grid hidden">
+        <div class="resumen-card">
+          <ion-icon name="book-outline"></ion-icon>
+          <span id="resumen-cursos-num" class="resumen-num">0</span>
+          <span class="resumen-label">Cursos activos</span>
+        </div>
+        <div class="resumen-card">
+          <ion-icon name="checkbox-outline"></ion-icon>
+          <span id="resumen-tareas-num" class="resumen-num">0</span>
+          <span class="resumen-label">Tareas pendientes</span>
+        </div>
+        <div class="resumen-card vencidas">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span id="resumen-vencidas-num" class="resumen-num">0</span>
+          <span class="resumen-label">Vencidas</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cursos -->
+    <section id="cursos" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Mis Cursos</h2>
+        <span id="cursos-count" class="section-count"></span>
+      </div>
+      <div id="lista-cursos" class="cursos-grid">
+        <div class="classroom-needed">
+          <ion-icon name="book-outline"></ion-icon>
+          <p>Conecta Google Classroom desde el Dashboard para ver tus cursos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tareas -->
+    <section id="tareas" class="section">
+      <div class="section-header">
+        <h2 class="section-title">Tareas</h2>
+        <div class="tareas-filtros">
+          <button class="filtro-btn active" data-filtro="pendientes" type="button">Pendientes</button>
+          <button class="filtro-btn" data-filtro="todas" type="button">Todas</button>
+        </div>
+      </div>
+      <div id="lista-tareas" class="tareas-list">
+        <div class="classroom-needed">
+          <ion-icon name="checkbox-outline"></ion-icon>
+          <p>Conecta Google Classroom desde el Dashboard para ver tus tareas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calificaciones (placeholder) -->
+    <section id="calificaciones" class="section">
+      <h2 class="section-title">Calificaciones</h2>
+      <div class="placeholder-section">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <p>Próximamente disponible.</p>
+      </div>
+    </section>
+
+    <!-- Horario (placeholder) -->
+    <section id="horario" class="section">
+      <h2 class="section-title">Horario</h2>
+      <div class="placeholder-section">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <p>Próximamente disponible.</p>
+      </div>
+    </section>
+
+    <!-- Mensajes (placeholder) -->
+    <section id="mensajes" class="section">
+      <h2 class="section-title">Mensajes</h2>
+      <div class="placeholder-section">
+        <ion-icon name="mail-outline"></ion-icon>
+        <p>Próximamente disponible.</p>
+      </div>
+    </section>
+
+  </div><!-- .content -->
+
+  <script src="./script_pAlumno.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

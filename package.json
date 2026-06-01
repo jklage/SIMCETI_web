@@ -1,0 +1,32 @@
+{
+  "name": "simcetiweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "star": "node servidor.js",
+    "dev": "nodemon servidor.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jklage/SIMCETI_web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jklage/SIMCETI_web/issues"
+  },
+  "homepage": "https://github.com/jklage/SIMCETI_web#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "google-auth-library": "^10.6.2",
+    "pg": "^8.20.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
