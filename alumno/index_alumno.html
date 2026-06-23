@@ -71,14 +71,28 @@
             </form>
         </div>
     </div>
-    <div id="login-alert" class="alert" style="transform: translateX(0%);">
+    <div id="login-alert" class="alert">
     <span class="closebtn" onclick="this.parentElement.style.display='none';"></span>
     <strong id="login-alert-text">Error:</strong>
     </div>
 
-    <div id="register-alert" class="alert" style="display: none;">
+    <div id="register-alert" class="alert">
     <span class="closebtn" onclick="this.parentElement.style.display='none';"></span>
     <strong id="register-alert-text">Error:</strong>
+    </div>
+
+    <!-- Modal: completar registro con Google -->
+    <div id="google-registro-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>Un paso más</h3>
+            <p>Ingresa tu número de registro escolar para continuar.</p>
+            <div class="container-input">
+                <ion-icon name="school-outline"></ion-icon>
+                <input type="number" id="modal-registro" placeholder="Número de registro">
+            </div>
+            <button type="button" id="modal-submit">Continuar</button>
+            <p id="modal-error" class="modal-error"></p>
+        </div>
     </div>
 
     <script src="/alumno/script_alumno.js"></script>

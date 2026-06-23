@@ -10,7 +10,8 @@ const {
     obtenerUsuario:  obtenerAlumno,
     validarUsuario,
     eliminarUsuario,
-    loginGoogle
+    loginGoogle,
+    loginGoogleRegistrar
 } = require('./controllers/alumnocontroladores');
 
 const {
@@ -30,7 +31,8 @@ app.use(express.static(path.join(__dirname)));
 app.post('/api/insertarAlumno', insertarAlumno);
 app.get( '/api/obtenerAlumno',  obtenerAlumno);
 app.post('/api/login',          validarUsuario);
-app.post('/api/loginGoogle',    loginGoogle);
+app.post('/api/loginGoogle',           loginGoogle);
+app.post('/api/loginGoogleRegistrar', loginGoogleRegistrar);
 app.delete('/api/eliminarAlumno', eliminarUsuario);
 
 // Rutas docente

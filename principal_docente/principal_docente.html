@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<title>Pagina principal del docente</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style_pDocente.css">
-<style>
-
-</style>
+  <meta charset="UTF-8">
+  <title>Página principal del docente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style_pDocente.css">
 </head>
 <body>
   <header>
@@ -18,12 +15,32 @@
       </div>
     </div>
     <div class="right">
-        <a href="#" title="Notificaciones" class="ionicon_a">
+      <div class="notif-wrapper">
+        <button type="button" class="notif-btn" id="notif-btn" title="Notificaciones">
           <ion-icon name="notifications-outline"></ion-icon>
-        </a>
-        <a href="#">
-          <img src="avatar.png" alt="Avatar" class="avatar">
-        </a>
+          <span id="notif-badge" class="notif-badge hidden">0</span>
+        </button>
+      </div>
+      <div class="user-menu-wrapper">
+        <button type="button" class="user-menu-trigger" id="user-menu-trigger">
+          <img src="avatar.png" alt="Avatar" id="header-avatar" class="user">
+        </button>
+        <div class="user-dropdown" id="user-dropdown">
+          <button type="button" id="btn-ver-avatar">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            Ver perfil
+          </button>
+          <button type="button" id="btn-configuracion">
+            <ion-icon name="settings-outline"></ion-icon>
+            Configuración
+          </button>
+          <hr class="dropdown-divider">
+          <button type="button" id="btn-logout-header" class="dropdown-logout">
+            <ion-icon name="log-out-outline"></ion-icon>
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -42,9 +59,6 @@
         <li><a href="#calificaciones">
           <ion-icon name="document-text-outline"></ion-icon>
           <span>Calificaciones</span></a></li>
-        <li><a href="#horario">
-          <ion-icon name="calendar-outline"></ion-icon>
-          <span>Horario</span></a></li>
         <li><a href="#mensajes">
           <ion-icon name="mail-outline"></ion-icon>
           <span>Mensajes</span></a></li>
@@ -55,16 +69,60 @@
     </nav>
     <div class="sidebar-footer">
       <a href="#perfil"><ion-icon name="person-outline"></ion-icon><span>Mi Perfil</span></a>
-      <a href="#logout"><ion-icon name="log-out-outline"></ion-icon><span>Cerrar Sesión</span></a>
+      <a href="#" id="btn-logout"><ion-icon name="log-out-outline"></ion-icon><span>Cerrar Sesión</span></a>
     </div>
   </aside>
 
   <div class="content">
-    <h1>Bienvenido, [Nombre del Docente]</h1>
+    <h1>Bienvenido, <span id="nombre-docente">Docente</span></h1>
   </div>
 
-<script src="script.pDocente.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <!-- Panel de notificaciones -->
+  <div id="notif-overlay" class="notif-overlay hidden"></div>
+  <div id="notif-panel" class="notif-panel hidden">
+    <div class="notif-panel-header">
+      <h3>Notificaciones</h3>
+      <button type="button" id="cerrar-notif-panel" aria-label="Cerrar notificaciones">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    <div id="notif-lista" class="notif-lista">
+      <p class="notif-empty">Sin notificaciones nuevas.</p>
+    </div>
+  </div>
+
+  <!-- Modal: perfil / avatar -->
+  <div id="avatar-modal" class="modal-overlay-user hidden">
+    <div class="user-modal-box">
+      <button type="button" class="modal-close-btn" id="cerrar-avatar-modal" aria-label="Cerrar">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <h3>Mi Perfil</h3>
+      <img id="avatar-preview-img" src="avatar.png" alt="Avatar" class="avatar-grande">
+      <label for="avatar-file-input" class="avatar-upload-label">
+        <ion-icon name="camera-outline"></ion-icon>
+        Cambiar foto
+      </label>
+      <input type="file" id="avatar-file-input" accept="image/*" class="hidden">
+    </div>
+  </div>
+
+  <!-- Modal: configuración -->
+  <div id="settings-modal" class="modal-overlay-user hidden">
+    <div class="user-modal-box">
+      <button type="button" class="modal-close-btn" id="cerrar-settings-modal" aria-label="Cerrar">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <h3>Configuración</h3>
+      <div class="setting-item">
+        <label for="setting-notif">Recibir notificaciones del sistema</label>
+        <input type="checkbox" id="setting-notif" checked>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.pDocente.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

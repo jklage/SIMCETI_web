@@ -1,27 +1,36 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap');
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}   
-body{
+    font-family: 'Patrick Hand', cursive;
+}
+
+body {
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #e8f0ec;
     padding: 20px;
 }
+
+/* ── Card ───────────────────────────────────────────── */
 .container {
     position: relative;
     width: 90%;
-    max-width: 450px;
-    height: 640px;
+    max-width: 420px;
+    height: 570px;
     overflow: hidden;
-    background-color: #ffffff;
-    display: block;
+    background-color: #f8fdf9;
+    border: 2px solid #1c1c1c;
+    border-top: 5px solid #1a6b4a;
+    box-shadow: 5px 5px 0 #1c1c1c;
 }
+
+/* ── Panel ──────────────────────────────────────────── */
 .container-form {
     position: absolute;
     top: 0;
@@ -29,71 +38,126 @@ body{
     width: 100%;
     height: 100%;
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background-color: white;
+    background-color: #f8fdf9;
     z-index: 1;
 }
-.container-form form{
+
+.container-form form {
     min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 20px 20px 28px;
 }
-.container-input{
-    margin-bottom: 10px;
-    width: 100%;
-    max-width: 300px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 0 15px;
-    background-color: rgb(211, 211, 211);
+
+/* ── Título ─────────────────────────────────────────── */
+.container-form h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 34px;
+    font-weight: 700;
+    color: #1c1c1c;
+    letter-spacing: 0.5px;
+    margin-bottom: 22px;
+    text-align: center;
     position: relative;
 }
-.container-input input{
+
+.container-form h2::after {
+    content: '';
+    display: block;
+    width: 55%;
+    height: 2px;
+    background: #1a6b4a;
+    margin: 5px auto 0;
+}
+
+/* ── Inputs ─────────────────────────────────────────── */
+.container-input {
+    margin-bottom: 14px;
+    width: 100%;
+    max-width: 300px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 4px;
+    background-color: transparent;
+    border-bottom: 2px solid #ccc;
+    transition: border-color 0.2s;
+    position: relative;
+}
+
+.container-input:focus-within {
+    border-bottom-color: #1a6b4a;
+}
+
+.container-input ion-icon {
+    font-size: 20px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.container-input input {
     border: none;
     outline: none;
     width: 100%;
     height: 100%;
-    background-color: inherit;
-    font-size: 16px;
+    background-color: transparent;
+    font-size: 15px;
+    font-family: 'Patrick Hand', cursive;
+    color: #1c1c1c;
 }
-.container-form h2{
-    font-size: clamp(24px, 5vw, 30px);
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-    font-family: sans-serif;
+
+.container-input input::placeholder {
+    color: #bbb;
+    font-style: italic;
 }
-.container-form a{
-    font-size: 14px;
-    color: #007bff;
-    margin-top: 10px;
-    margin-bottom: 10px;
+
+/* ── Links ──────────────────────────────────────────── */
+.container-form a {
+    font-size: 13px;
+    color: #1a6b4a;
+    margin-top: 5px;
+    margin-bottom: 5px;
     text-decoration: none;
+    font-family: 'Patrick Hand', cursive;
     cursor: pointer;
 }
+
 .container-form a:hover {
     text-decoration: underline;
 }
+
+/* ── Botón principal ────────────────────────────────── */
 .container-form button.btn {
-    padding: 12px 30px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    padding: 9px 26px;
+    font-size: 17px;
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    background-color: #1a6b4a;
+    color: #f8fdf9;
+    border: 2px solid #1c1c1c;
+    border-radius: 2px;
+    box-shadow: 3px 3px 0 #1c1c1c;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 20px;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    letter-spacing: 0.5px;
+    margin-top: 12px;
 }
-.container-form button.btn:hover{
-    background-color: #0056b3;
+
+.container-form button.btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1c1c1c;
 }
-.Background{
+
+.container-form button.btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+/* ── Imagen de fondo ────────────────────────────────── */
+.Background {
     position: fixed;
     top: 0;
     left: 0;
@@ -101,10 +165,10 @@ body{
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    opacity: 0.3;
+    opacity: 0.06;
 }
 
-/* Paneles ocultos */
+/* ── Transiciones de panel ──────────────────────────── */
 .login-panel.hide {
     transform: translateX(-100%);
     opacity: 0;
@@ -117,8 +181,7 @@ body{
     pointer-events: none;
 }
 
-/* Paneles visibles */
-.login-panel:not(.hide), 
+.login-panel:not(.hide),
 .register-panel:not(.hide) {
     transform: translateX(0);
     opacity: 1;
@@ -126,6 +189,7 @@ body{
     z-index: 2;
 }
 
+/* ── Checkbox + botón ───────────────────────────────── */
 .checkbox-button-container {
     display: flex;
     align-items: center;
@@ -133,31 +197,38 @@ body{
     width: 100%;
     max-width: 300px;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 .checkbox-group {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
 .form-check-input {
     margin: 0;
     cursor: pointer;
+    accent-color: #1a6b4a;
+    width: 15px;
+    height: 15px;
 }
+
 .form-check-label {
     margin: 0;
     cursor: pointer;
     white-space: nowrap;
+    font-size: 13px;
+    color: #555;
+    font-family: 'Patrick Hand', cursive;
 }
 
-/* Iconos de mostrar/ocultar contraseña */
+/* ── Ojo contraseña ─────────────────────────────────── */
 .seePsw {
-    position: relative;
     display: flex;
     align-items: center;
     cursor: pointer;
+    color: #aaa;
 }
 
 .seePsw ion-icon {
@@ -168,33 +239,37 @@ body{
     cursor: pointer;
 }
 
+/* ── Divisor Google ─────────────────────────────────── */
 .google-divider {
     display: flex;
     align-items: center;
     width: 100%;
     max-width: 300px;
-    margin: 14px 0 8px;
+    margin: 12px 0 8px;
     gap: 10px;
-    color: #888;
-    font-size: 13px;
+    color: #aaa;
+    font-size: 12px;
+    font-family: 'Patrick Hand', cursive;
+    font-style: italic;
 }
+
 .google-divider::before,
 .google-divider::after {
     content: '';
     flex: 1;
-    height: 1px;
-    background-color: #ccc;
+    height: 1.5px;
+    background-color: #ddd;
 }
 
-/* Responsive */
+/* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 768px) {
     .container {
         width: 95%;
-        max-width: 500px;
+        max-width: 420px;
     }
-    
+
     .container-input {
-        max-width: 250px;
+        max-width: 260px;
     }
 }
 
@@ -203,13 +278,13 @@ body{
         max-width: 100%;
         min-height: auto;
     }
-    
+
     .container-input {
-        max-width: 100%;
+        max-width: 90%;
         width: 90%;
     }
-    
+
     .container-form h2 {
-        font-size: 24px;
+        font-size: 28px;
     }
 }

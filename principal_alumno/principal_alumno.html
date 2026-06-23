@@ -15,12 +15,32 @@
       </div>
     </div>
     <div class="right">
-      <a href="#" title="Notificaciones" class="ionicon_a">
-        <ion-icon name="notifications-outline"></ion-icon>
-      </a>
-      <a href="#">
-        <img src="avatar.png" alt="Avatar" class="avatar">
-      </a>
+      <div class="notif-wrapper">
+        <button type="button" class="notif-btn" id="notif-btn" title="Notificaciones">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <span id="notif-badge" class="notif-badge hidden">0</span>
+        </button>
+      </div>
+      <div class="user-menu-wrapper">
+        <button type="button" class="user-menu-trigger" id="user-menu-trigger">
+          <img src="avatar.png" alt="Avatar" id="header-avatar" class="user">
+        </button>
+        <div class="user-dropdown" id="user-dropdown">
+          <button type="button" id="btn-ver-avatar">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            Ver perfil
+          </button>
+          <button type="button" id="btn-configuracion">
+            <ion-icon name="settings-outline"></ion-icon>
+            Configuración
+          </button>
+          <hr class="dropdown-divider">
+          <button type="button" id="btn-logout-header" class="dropdown-logout">
+            <ion-icon name="log-out-outline"></ion-icon>
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -36,12 +56,6 @@
         <li><a href="#tareas" class="nav-link" data-section="tareas">
           <ion-icon name="checkbox-outline"></ion-icon>
           <span>Tareas</span></a></li>
-        <li><a href="#calificaciones" class="nav-link" data-section="calificaciones">
-          <ion-icon name="document-text-outline"></ion-icon>
-          <span>Calificaciones</span></a></li>
-        <li><a href="#horario" class="nav-link" data-section="horario">
-          <ion-icon name="calendar-outline"></ion-icon>
-          <span>Horario</span></a></li>
         <li><a href="#mensajes" class="nav-link" data-section="mensajes">
           <ion-icon name="mail-outline"></ion-icon>
           <span>Mensajes</span></a></li>
@@ -58,7 +72,7 @@
     <!-- Dashboard -->
     <section id="dashboard" class="section active">
       <h1 class="section-title">Bienvenido, <span id="nombre-alumno">Alumno</span></h1>
-
+      <p id="dashboard-fecha" class="dashboard-fecha"></p>
       <div id="classroom-connect-banner" class="classroom-banner">
         <div class="banner-icon">
           <svg viewBox="0 0 24 24" fill="none" width="48" height="48">
@@ -70,11 +84,8 @@
           <strong>Conecta Google Classroom</strong>
           <p>Accede a tus cursos y tareas directamente desde aquí.</p>
         </div>
-        <button id="btn-conectar-classroom" class="btn-conectar" type="button">
-          Conectar Classroom
-        </button>
+        <button id="btn-conectar-classroom" class="btn-conectar" type="button">Conectar Classroom</button>
       </div>
-
       <div id="classroom-resumen" class="resumen-grid hidden">
         <div class="resumen-card">
           <ion-icon name="book-outline"></ion-icon>
@@ -91,6 +102,18 @@
           <span id="resumen-vencidas-num" class="resumen-num">0</span>
           <span class="resumen-label">Vencidas</span>
         </div>
+      </div>
+
+      <!-- Widget: próximas entregas -->
+      <div id="proximas-widget" class="proximas-widget hidden">
+        <div class="widget-header">
+          <h3 class="widget-title">
+            <ion-icon name="time-outline"></ion-icon>
+            Próximas entregas
+          </h3>
+          <button type="button" class="widget-ver-todas" id="btn-ir-tareas">Ver todas →</button>
+        </div>
+        <div id="lista-proximas" class="proximas-lista"></div>
       </div>
     </section>
 
@@ -110,12 +133,16 @@
 
     <!-- Tareas -->
     <section id="tareas" class="section">
-      <div class="section-header">
-        <h2 class="section-title">Tareas</h2>
-        <div class="tareas-filtros">
-          <button class="filtro-btn active" data-filtro="pendientes" type="button">Pendientes</button>
-          <button class="filtro-btn" data-filtro="todas" type="button">Todas</button>
+      <h2 class="section-title">Tareas pendientes</h2>
+      <div class="tareas-toolbar">
+        <div class="tareas-tabs">
+          <button class="tab-btn active" data-tab="asignado" type="button">Asignado</button>
+          <button class="tab-btn" data-tab="sin_entregar" type="button">Sin entregar</button>
+          <button class="tab-btn" data-tab="hecho" type="button">Hecho</button>
         </div>
+        <select id="filtro-clase" class="filtro-clase-select" title="Filtrar por clase" aria-label="Filtrar por clase">
+          <option value="">Todas las clases</option>
+        </select>
       </div>
       <div id="lista-tareas" class="tareas-list">
         <div class="classroom-needed">
@@ -125,25 +152,7 @@
       </div>
     </section>
 
-    <!-- Calificaciones (placeholder) -->
-    <section id="calificaciones" class="section">
-      <h2 class="section-title">Calificaciones</h2>
-      <div class="placeholder-section">
-        <ion-icon name="document-text-outline"></ion-icon>
-        <p>Próximamente disponible.</p>
-      </div>
-    </section>
-
-    <!-- Horario (placeholder) -->
-    <section id="horario" class="section">
-      <h2 class="section-title">Horario</h2>
-      <div class="placeholder-section">
-        <ion-icon name="calendar-outline"></ion-icon>
-        <p>Próximamente disponible.</p>
-      </div>
-    </section>
-
-    <!-- Mensajes (placeholder) -->
+    <!-- Mensajes -->
     <section id="mensajes" class="section">
       <h2 class="section-title">Mensajes</h2>
       <div class="placeholder-section">
@@ -152,7 +161,78 @@
       </div>
     </section>
 
-  </div><!-- .content -->
+  </div>
+
+  <!-- Panel de notificaciones -->
+  <div id="notif-overlay" class="notif-overlay hidden"></div>
+  <div id="notif-panel" class="notif-panel hidden">
+    <div class="notif-panel-header">
+      <h3>Notificaciones</h3>
+      <button type="button" id="cerrar-notif-panel" aria-label="Cerrar notificaciones"><ion-icon name="close-outline"></ion-icon></button>
+    </div>
+    <div id="notif-lista" class="notif-lista">
+      <p class="notif-empty">Conecta Classroom para ver notificaciones.</p>
+    </div>
+  </div>
+
+  <!-- Modal: detalle y entrega de tarea -->
+  <div id="tarea-modal" class="tarea-modal-overlay hidden">
+    <div class="tarea-modal-box">
+      <button type="button" class="modal-close-btn" id="cerrar-tarea-modal" aria-label="Cerrar">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <p id="modal-tarea-curso" class="modal-curso-label"></p>
+      <h2 id="modal-tarea-titulo"></h2>
+      <p id="modal-tarea-fecha" class="modal-fecha-label"></p>
+      <div id="modal-tarea-desc" class="modal-desc"></div>
+      <div id="modal-loading" class="modal-loading hidden">
+        <ion-icon name="hourglass-outline"></ion-icon> Cargando entrega...
+      </div>
+      <div id="modal-estado-submission" class="submission-badge hidden"></div>
+      <div id="modal-entrega-form" class="entrega-form hidden">
+        <p class="entrega-label">Adjunta un enlace (opcional):</p>
+        <input type="url" id="submission-link-input" placeholder="https://..." class="entrega-input">
+        <button type="button" id="btn-entregar" class="btn-entregar-tarea">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          Entregar tarea
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: perfil / avatar -->
+  <div id="avatar-modal" class="modal-overlay-user hidden">
+    <div class="user-modal-box">
+      <button type="button" class="modal-close-btn" id="cerrar-avatar-modal" aria-label="Cerrar">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <h3>Mi Perfil</h3>
+      <img id="avatar-preview-img" src="avatar.png" alt="Avatar" class="avatar-grande">
+      <label for="avatar-file-input" class="avatar-upload-label">
+        <ion-icon name="camera-outline"></ion-icon>
+        Cambiar foto
+      </label>
+      <input type="file" id="avatar-file-input" accept="image/*" class="hidden">
+    </div>
+  </div>
+
+  <!-- Modal: configuración -->
+  <div id="settings-modal" class="modal-overlay-user hidden">
+    <div class="user-modal-box">
+      <button type="button" class="modal-close-btn" id="cerrar-settings-modal" aria-label="Cerrar">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+      <h3>Configuración</h3>
+      <div class="setting-item">
+        <label for="setting-notif-tareas">Notificaciones de tareas próximas</label>
+        <input type="checkbox" id="setting-notif-tareas" checked>
+      </div>
+      <div class="setting-item">
+        <label for="setting-notif-vencidas">Notificaciones de tareas vencidas</label>
+        <input type="checkbox" id="setting-notif-vencidas" checked>
+      </div>
+    </div>
+  </div>
 
   <script src="./script_pAlumno.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>

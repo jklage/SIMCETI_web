@@ -167,11 +167,19 @@ if (loginForm) loginForm.addEventListener('submit', (e) => {
 
 });
 
-function handleGoogleLogin(response) {
-    // response.credential es un JWT
-    const token = response.credential;
+const GOOGLE_CLIENT_ID = '69679398129-l7nfc1sp54l7qiomhfol99rkutjh6coe.apps.googleusercontent.com';
+const CLASSROOM_SCOPES = [
+    'https://www.googleapis.com/auth/classroom.courses.readonly',
+    'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
+    'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly'
+].join(' ');
 
-    // Lo mandas a tu backend para verificarlo
+let googleTokenPendiente = null;
+
+function handleGoogleLogin(response) {
+    const token = response.credential;
+    googleTokenPendiente = token;
+
     fetch('http://localhost:3000/api/loginGoogle', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -180,12 +188,65 @@ function handleGoogleLogin(response) {
     .then(res => res.json())
     .then(data => {
         if (data.exito) {
-            window.location.href = '/principal_alumno/principal_alumno.html';
+            solicitarTokenClassroom(() => {
+                window.location.href = '/principal_alumno/principal_alumno.html';
+            });
+        } else if (data.nuevo) {
+            document.getElementById('google-registro-modal').style.display = 'flex';
         } else {
             mostrarAlertaPersonalizada('login-alert', data.error || 'Error con Google');
         }
-    });
+    })
+    .catch(() => mostrarAlertaPersonalizada('login-alert', 'Error de comunicación con el servidor.'));
 }
+
+function solicitarTokenClassroom(onDone) {
+    try {
+        const tc = google.accounts.oauth2.initTokenClient({
+            client_id: GOOGLE_CLIENT_ID,
+            scope: CLASSROOM_SCOPES,
+            prompt: '',
+            callback: (resp) => {
+                if (!resp.error && resp.access_token) {
+                    sessionStorage.setItem('classroom_token', resp.access_token);
+                }
+                onDone();
+            }
+        });
+        tc.requestAccessToken();
+    } catch {
+        onDone();
+    }
+}
+
+document.getElementById('modal-submit').addEventListener('click', async () => {
+    const registro = document.getElementById('modal-registro').value.trim();
+    const errorEl = document.getElementById('modal-error');
+
+    if (!registro) {
+        errorEl.textContent = 'Ingresa tu número de registro.';
+        errorEl.style.display = 'block';
+        return;
+    }
+
+    try {
+        const resp = await fetch('http://localhost:3000/api/loginGoogleRegistrar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: googleTokenPendiente, registro })
+        });
+        const data = await resp.json();
+        if (data.exito) {
+            window.location.href = '/principal_alumno/principal_alumno.html';
+        } else {
+            errorEl.textContent = data.error || 'Error al registrar.';
+            errorEl.style.display = 'block';
+        }
+    } catch {
+        errorEl.textContent = 'Error de comunicación con el servidor.';
+        errorEl.style.display = 'block';
+    }
+});
 
 
 

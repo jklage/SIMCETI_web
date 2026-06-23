@@ -173,5 +173,5 @@ function handleGoogleLoginDocente(response) {
             alert(data.error || 'Error al iniciar sesión con Google');
         }
     })
-    .catch(() => alert('Error de comunicación con el servidor'));
+    .catch(() => alert('Error de comunicación con el servidor. Verifica que el servidor esté corriendo.'));
 }

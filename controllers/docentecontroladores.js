@@ -32,7 +32,8 @@ const insertarUsuario = async (req, res) => {
 
 const validarUsuarioDocente = async (req, res) => {
     try {
-        const { nombre, contrasena } = req.body;
+        const nombre = req.body.nombre || req.body.usuario;
+        const { contrasena } = req.body;
         if (!nombre || !contrasena) {
             return res.status(400).json({ exito: false, error: 'Faltan credenciales' });
         }
@@ -75,7 +76,14 @@ const loginGoogleDocente = async (req, res) => {
         );
 
         if (resultado.rows.length === 0) {
-            return res.status(404).json({ exito: false, error: 'No existe una cuenta de docente con este correo. Regístrate primero.' });
+            const { name } = ticket.getPayload();
+            const password = require('crypto').randomUUID();
+            await pool.query('CALL sp_registrar_docente($1, $2, $3)', [name || email, email, password]);
+            const nuevo = await pool.query(
+                'SELECT id, nombre, email FROM docente_registrado WHERE email = $1',
+                [email]
+            );
+            return res.json({ exito: true, usuario: nuevo.rows[0] });
         }
 
         return res.json({ exito: true, usuario: resultado.rows[0] });

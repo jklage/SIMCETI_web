@@ -108,9 +108,55 @@ const loginGoogle = async (req, res) => {
             return res.status(403).json({ exito: false, error: 'Solo se permiten cuentas @ceti.mx' });
         }
 
-        return res.json({ exito: true, email });
+        const resultado = await pool.query(
+            'SELECT id, registro, email FROM alumno_registrado WHERE email = $1',
+            [email]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.json({ exito: false, nuevo: true });
+        }
+
+        return res.json({ exito: true, usuario: resultado.rows[0] });
     } catch (err) {
         return res.status(401).json({ exito: false, error: 'Token inválido' });
+    }
+};
+
+const loginGoogleRegistrar = async (req, res) => {
+    const { token, registro } = req.body;
+    if (!token || !registro) {
+        return res.status(400).json({ exito: false, error: 'Token y registro requeridos' });
+    }
+    try {
+        const ticket = await clienteGoogle.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID
+        });
+        const { email } = ticket.getPayload();
+
+        if (!email.endsWith('@ceti.mx')) {
+            return res.status(403).json({ exito: false, error: 'Solo se permiten cuentas @ceti.mx' });
+        }
+
+        const password = require('crypto').randomUUID();
+        await pool.query('CALL sp_registrar_alumno($1, $2, $3)', [registro, email, password]);
+
+        const resultado = await pool.query(
+            'SELECT id, registro, email FROM alumno_registrado WHERE email = $1',
+            [email]
+        );
+
+        return res.json({ exito: true, usuario: resultado.rows[0] });
+    } catch (err) {
+        if (err.code === '23505') {
+            const detalle = err.detail || '';
+            if (detalle.includes('registro')) {
+                return res.status(409).json({ exito: false, error: 'Ese número de registro ya está en uso.' });
+            }
+            return res.status(409).json({ exito: false, error: 'Ese correo ya está registrado.' });
+        }
+        return res.status(401).json({ exito: false, error: 'Token inválido o error al registrar.' });
     }
 };
 
@@ -119,5 +165,6 @@ module.exports = {
     obtenerUsuario,
     validarUsuario,
     eliminarUsuario,
-    loginGoogle
+    loginGoogle,
+    loginGoogleRegistrar
 };

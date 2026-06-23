@@ -1,0 +1,67 @@
+@startuml Temporizacion
+skinparam backgroundColor #FDFEFE
+
+title Diagrama de Temporización - Entrega de Tarea
+
+robust "Alumno" as A
+robust "Frontend (JS)" as FE
+robust "Google Classroom API" as GC
+robust "servidor.js" as SRV
+
+@0
+A is Inactivo
+FE is Esperando
+GC is Disponible
+SRV is Escuchando
+
+@10
+A is ClickConectar
+FE is SolicitandoToken
+
+@20
+A is Esperando
+FE is TokenObtenido
+GC is ProcesandoCursos
+
+@40
+FE is RenderizandoCursos
+GC is Disponible
+
+@60
+A is SeleccionaTarea
+FE is CargandoSubmission
+GC is ProcesandoSubmission
+
+@80
+FE is MostrandoModal
+GC is Disponible
+
+@100
+A is IngresaEnlace
+FE is Esperando
+
+@120
+A is ClickEntregar
+FE is EnviandoPATCH
+GC is ActualizandoSubmission
+SRV is Escuchando
+
+@140
+FE is EnviandoTurnIn
+GC is ProcesandoTurnIn
+
+@160
+FE is VerificandoEstado
+GC is Disponible
+
+@180
+A is Inactivo
+FE is MostrandoConfirmacion
+GC is Disponible
+SRV is Escuchando
+
+@200
+A is Inactivo
+FE is Esperando
+
+@enduml

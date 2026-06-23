@@ -1,93 +1,160 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Patrick+Hand&display=swap');
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}   
-body{
+    font-family: 'Patrick Hand', cursive;
+}
+
+body {
     width: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #f0ece2;
     padding: 20px;
 }
+
+/* ── Card ───────────────────────────────────────────── */
 .container {
     position: relative;
     width: 90%;
-    max-width: 450px; /* Reducimos el ancho para que parezca una sola tarjeta */
-    height: 550px;
+    max-width: 420px;
+    height: 555px;
     overflow: hidden;
-    background-color: #ffffff;
-    display: block; /* Cambiamos de flex a block para manejar absolutos */
+    background-color: #fdfbf5;
+    border: 2px solid #1c1c1c;
+    border-top: 5px solid #1a56a0;
+    box-shadow: 5px 5px 0 #1c1c1c;
 }
+
+/* ── Panel ──────────────────────────────────────────── */
 .container-form {
-    position: absolute; /* Clave: se enciman uno sobre otro */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Efecto elástico */
-    background-color: white;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    background-color: #fdfbf5;
     z-index: 1;
 }
-.container-form form{
+
+.container-form form {
     min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 20px 20px 28px;
 }
-.container-input{
-    margin-bottom: 10px;
+
+/* ── Título ─────────────────────────────────────────── */
+.container-form h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 34px;
+    font-weight: 700;
+    color: #1c1c1c;
+    letter-spacing: 0.5px;
+    margin-bottom: 22px;
+    text-align: center;
+    position: relative;
+}
+
+.container-form h2::after {
+    content: '';
+    display: block;
+    width: 55%;
+    height: 2px;
+    background: #1a56a0;
+    margin: 5px auto 0;
+}
+
+/* ── Inputs ─────────────────────────────────────────── */
+.container-input {
+    margin-bottom: 14px;
     width: 100%;
     max-width: 300px;
-    height: 40px;
+    height: 46px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 0 15px;
-    background-color: rgb(211, 211, 211);
+    gap: 10px;
+    padding: 0 4px;
+    background-color: transparent;
+    border-bottom: 2px solid #ccc;
+    transition: border-color 0.2s;
 }
-.container-input input{
+
+.container-input:focus-within {
+    border-bottom-color: #1a56a0;
+}
+
+.container-input ion-icon {
+    font-size: 20px;
+    color: #999;
+    flex-shrink: 0;
+}
+
+.container-input input {
     border: none;
     outline: none;
     width: 100%;
     height: 100%;
-    background-color: inherit;
-    font-size: 16px;
-}
-.container-form h2{
-    font-size: clamp(24px, 5vw, 30px);
-    display: flex;
-    justify-content: center;
-    margin-top: 120px;
-    margin-bottom: -90px;
-    font-family: sans-serif;
-}
-.container-form a{
+    background-color: transparent;
     font-size: 15px;
-    color: black;
+    font-family: 'Patrick Hand', cursive;
+    color: #1c1c1c;
+}
+
+.container-input input::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+/* ── Links ──────────────────────────────────────────── */
+.container-form a {
+    font-size: 13px;
+    color: #1a56a0;
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    font-family: 'Patrick Hand', cursive;
 }
-.container-form button{
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+
+.container-form a:hover {
+    text-decoration: underline;
+}
+
+/* ── Botón principal ────────────────────────────────── */
+.container-form button.btn {
+    padding: 9px 26px;
+    font-size: 17px;
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    background-color: #1a56a0;
+    color: #fdfbf5;
+    border: 2px solid #1c1c1c;
+    border-radius: 2px;
+    box-shadow: 3px 3px 0 #1c1c1c;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    letter-spacing: 0.5px;
 }
-.container-form button:hover{
-    background-color: #0056b3;
+
+.container-form button.btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1c1c1c;
 }
-.Background{
+
+.container-form button.btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+/* ── Imagen de fondo ────────────────────────────────── */
+.Background {
     position: fixed;
     top: 0;
     left: 0;
@@ -95,28 +162,29 @@ body{
     height: 100%;
     object-fit: cover;
     z-index: -1;
-    opacity: 0.3;
+    opacity: 0.06;
 }
+
+/* ── Transiciones de panel ──────────────────────────── */
 .login-panel.hide {
     transform: translateX(-100%);
     opacity: 0;
-    pointer-events: none; /* Evita que se pueda clickear mientras está oculto */
+    pointer-events: none;
 }
 
-/* Registrarse: Se oculta hacia la DERECHA */
 .register-panel.hide {
     transform: translateX(100%);
     opacity: 0;
     pointer-events: none;
 }
 
-/* Estado visible por defecto */
 .login-panel, .register-panel {
     transform: translateX(0);
     opacity: 1;
     z-index: 2;
 }
 
+/* ── Checkbox + botón ───────────────────────────────── */
 .checkbox-button-container {
     display: flex;
     align-items: center;
@@ -124,120 +192,202 @@ body{
     width: 100%;
     max-width: 300px;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
 .checkbox-group {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
 .form-check-input {
     margin: 0;
     cursor: pointer;
+    accent-color: #1a56a0;
+    width: 15px;
+    height: 15px;
 }
+
 .form-check-label {
     margin: 0;
     cursor: pointer;
     white-space: nowrap;
+    font-size: 13px;
+    color: #555;
+    font-family: 'Patrick Hand', cursive;
 }
 
-/*Eye outline*/
+/* ── Ojo contraseña ─────────────────────────────────── */
 #toggle {
     display: none;
-  }
+}
 
-  /* Estilo de la imagen */
-  .mi-imagen {
-    width: 300px;
+.seePsw {
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    transition: opacity 0.3s;
-  }
-
-  /* Cuando el checkbox está marcado, la imagen se oculta */
-  #toggle:checked + label .mi-imagen {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-
-  /* Alerta */
-
-  #registerForm {
-    position: relative;
-  }
-
-
-.alert {
-    position: absolute;
-  padding: 20px;
-  background-color: #f44336; /* Red */
-  color: white;
-  margin-bottom: 15px;
-  opacity: 1;
-  z-index: 100;
-  transition: opacity 0.6s; /* 600ms to fade out */
-  top: 0;
-  left: 0;
-  opacity: 0;
+    color: #aaa;
 }
 
-/* The close button */
-.closebtn {
-  margin-left: 15px;
-  color: white;
-  font-weight: bold;
-  float: right;
-  font-size: 22px;
-  line-height: 20px;
-  cursor: pointer;
-  transition: 0.3s;
+.seePsw ion-icon {
+    font-size: 20px;
 }
 
-/* When moving the mouse over the close button */
-.closebtn:hover {
-  color: black;
+.iconOpen, .iconClose {
+    cursor: pointer;
 }
 
+/* ── Divisor Google ─────────────────────────────────── */
 .google-divider {
     display: flex;
     align-items: center;
     width: 100%;
     max-width: 300px;
-    margin: 14px 0 8px;
+    margin: 12px 0 8px;
     gap: 10px;
-    color: #888;
-    font-size: 13px;
+    color: #aaa;
+    font-size: 12px;
+    font-family: 'Patrick Hand', cursive;
+    font-style: italic;
 }
+
 .google-divider::before,
 .google-divider::after {
     content: '';
     flex: 1;
-    height: 1px;
-    background-color: #ccc;
+    height: 1.5px;
+    background-color: #ddd;
 }
 
-/* Responsive */
+/* ── Alertas ────────────────────────────────────────── */
+.alert {
+    position: fixed;
+    padding: 14px 20px;
+    background-color: #c0392b;
+    color: white;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 15px;
+    border-bottom: 3px solid #922b21;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.4s;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: #ffeaea;
+}
+
+/* ── Modal Google registro ──────────────────────────── */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-box {
+    background: #fdfbf5;
+    border: 2px solid #1c1c1c;
+    box-shadow: 5px 5px 0 #1c1c1c;
+    padding: 28px 24px;
+    width: 90%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.modal-box h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1c1c1c;
+}
+
+.modal-box p {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    font-family: 'Patrick Hand', cursive;
+}
+
+.modal-box input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    background: transparent;
+    padding: 8px 4px;
+    font-size: 15px;
+    font-family: 'Patrick Hand', cursive;
+    outline: none;
+    color: #1c1c1c;
+}
+
+.modal-box input:focus {
+    border-bottom-color: #1a56a0;
+}
+
+.modal-box button {
+    width: 100%;
+    max-width: 280px;
+    padding: 9px 20px;
+    font-size: 17px;
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    background-color: #1a56a0;
+    color: #fdfbf5;
+    border: 2px solid #1c1c1c;
+    border-radius: 2px;
+    box-shadow: 3px 3px 0 #1c1c1c;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.modal-box button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #1c1c1c;
+}
+
+.modal-error {
+    color: #c0392b;
+    font-size: 13px;
+    display: none;
+    text-align: center;
+    font-family: 'Patrick Hand', cursive;
+}
+
+/* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
         width: 95%;
-        max-width: 500px;
-    }
-    
-    .login-panel {
-        display: none;
-        transform: none;
-        border-right: none;
+        max-width: 420px;
     }
 
-    .container-form {
-        width: 100%;
-        border-bottom: 1px solid green;
-    }
-    
     .container-input {
-        max-width: 250px;
+        max-width: 260px;
     }
 }
 
@@ -246,13 +396,13 @@ body{
         max-width: 100%;
         min-height: auto;
     }
-    
+
     .container-input {
-        max-width: 100%;
+        max-width: 90%;
         width: 90%;
     }
-    
+
     .container-form h2 {
-        font-size: 20px;
+        font-size: 28px;
     }
 }
